@@ -1,6 +1,6 @@
 package com.yohwan.kotlin.blog.dto
 
-class BlogDto(
+data class BlogDto(
     val query: String,
     val sort: String,
     val page: Int,
