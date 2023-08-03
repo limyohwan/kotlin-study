@@ -1,4 +1,4 @@
-package com.yohwan.kotlin.dto
+package com.yohwan.kotlin.blog.dto
 
 class BlogDto(
     val query: String,
