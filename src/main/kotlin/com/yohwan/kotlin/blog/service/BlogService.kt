@@ -58,7 +58,7 @@ class BlogService(
 
         val result = response.block()
 
-        val lowQuery: String = blogDto.query!!.lowercase()
+        val lowQuery: String = blogDto.query.lowercase()
         val word:Wordcount = wordRepository.findById(lowQuery).orElse(Wordcount(lowQuery))
         word.cnt++
 

@@ -1,5 +1,6 @@
 package com.yohwan.kotlin.blog.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.yohwan.kotlin.core.annotation.ValidEnum
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
@@ -8,7 +9,8 @@ import jakarta.validation.constraints.NotNull
 
 data class BlogDto(
     @field:NotBlank(message = "query must not null")
-    val query: String?,
+    @JsonProperty("query")
+    private val _query: String?,
 
     @field:NotBlank(message = "sort must not null")
     @field:ValidEnum(enumClass = EnumSort::class, message = "sort is ACCURACY or RECENCY")
@@ -22,6 +24,9 @@ data class BlogDto(
     @field:NotNull(message = "size must not null")
     val size: Int?
 ) {
+    val query: String
+        get() = _query!!
+
     private enum class EnumSort {
         ACCURACY,
         RECENCY
