@@ -1,6 +1,7 @@
 package com.yohwan.kotlin.blog.controller
 
 import com.yohwan.kotlin.blog.dto.BlogDto
+import com.yohwan.kotlin.blog.entity.Wordcount
 import com.yohwan.kotlin.blog.service.BlogService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,4 +19,7 @@ class BlogController(
         val result = blogService.searchKakao(blogDto)
         return result
     }
+
+    @GetMapping("/rank")
+    fun searchWordRank(): List<Wordcount> = blogService.searchWordRank()
 }

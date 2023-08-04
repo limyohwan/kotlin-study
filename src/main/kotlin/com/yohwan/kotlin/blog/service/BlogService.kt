@@ -1,6 +1,8 @@
 package com.yohwan.kotlin.blog.service
 
 import com.yohwan.kotlin.blog.dto.BlogDto
+import com.yohwan.kotlin.blog.entity.Wordcount
+import com.yohwan.kotlin.blog.repository.WordRepository
 import com.yohwan.kotlin.core.exception.InvalidInputException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -10,7 +12,9 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
 
 @Service
-class BlogService {
+class BlogService(
+    val wordRepository: WordRepository
+) {
     @Value("\${rest-api-key}")
     lateinit var restApiKey: String
 
@@ -52,8 +56,18 @@ class BlogService {
             .retrieve()
             .bodyToMono<String>()
 
-        return response.block()
+        val result = response.block()
+
+        val lowQuery: String = blogDto.query!!.lowercase()
+        val word:Wordcount = wordRepository.findById(lowQuery).orElse(Wordcount(lowQuery))
+        word.cnt++
+
+        wordRepository.save(word)
+
+        return result
     }
+
+    fun searchWordRank(): List<Wordcount> = wordRepository.findTop10ByOrderByCntDesc()
 }
 
 private enum class ExceptionMsg(val msg: String) {
