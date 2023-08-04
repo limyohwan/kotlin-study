@@ -28,3 +28,5 @@ logging:
       hibernate:
         type.descriptor.sql: trace
         SQL: debug
+
+rest-api-key: yourkey
