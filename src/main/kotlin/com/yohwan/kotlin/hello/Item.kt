@@ -32,7 +32,7 @@ interface ItemTrade {
     fun sell()
 }
 
-enum class Color {
+enum class Color2 {
     RED,
     GREEN,
     BLUE
