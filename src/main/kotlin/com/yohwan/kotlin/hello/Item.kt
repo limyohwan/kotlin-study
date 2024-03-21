@@ -6,6 +6,10 @@ fun main(args: Array<String>) {
 
     item.buy()
     item.sell()
+
+    val item2 = Item2("Book", 10_000)
+    println("Item name is ${item2.name}, price is ${item2.price}")
+
 }
 
 class Item(
@@ -21,7 +25,15 @@ class Item(
     }
 }
 
+data class Item2(val name: String, val price: Int) // 기본적으로 Getter, Setter(var), equals, hashcode, tostring, copy, componentN 함수들이 생성됨
+
 interface ItemTrade {
     fun buy()
     fun sell()
+}
+
+enum class Color {
+    RED,
+    GREEN,
+    BLUE
 }
